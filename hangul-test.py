@@ -7,7 +7,7 @@ from os.path import dirname, realpath
 
 # Game object
 class Game():
-    def __init__(self, rounds, common=False):
+    def __init__(self, rounds, common):
         self.__rounds = rounds
         self.__score = 0
         # Use different sample set depending on common arg parsed
@@ -56,7 +56,7 @@ def main():
     parser = argparse.ArgumentParser(description='Hangul study/test app')
     parser.add_argument('-n', dest='rounds', type=int, default=10,
                         help='Number of question rounds')
-    parser.add_argument('-c', dest='common', action='store_true',
+    parser.add_argument('-c', dest='common', action='store_true', default=False
                         help='Use most common syllables')
     args = parser.parse_args()
 
