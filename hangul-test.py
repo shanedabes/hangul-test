@@ -56,7 +56,7 @@ def main():
     parser = argparse.ArgumentParser(description='Hangul study/test app')
     parser.add_argument('-n', dest='rounds', type=int, default=10,
                         help='Number of question rounds')
-    parser.add_argument('-c', dest='common', action='store_true', default=False
+    parser.add_argument('-c', dest='common', action='store_true', default=False,
                         help='Use most common syllables')
     args = parser.parse_args()
 
