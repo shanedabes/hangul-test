@@ -30,7 +30,7 @@ class Game():
 
     # Ask a question for the current character
     def __ask(self, round, char):
-        print('Q{}: What is the name of this character?'.format(round))
+        print('Q{}: What is the name of this hangul?'.format(round))
         print(char)
 
     # Check if the given answer is correct
