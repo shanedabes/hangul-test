@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 
 import kroman
-from random import randint
+from random import randint, sample
 import argparse
+from os.path import dirname, realpath
 
 # Game object
 class Game():
-    def __init__(self, rounds):
+    def __init__(self, rounds, common=False):
         self.__rounds = rounds
         self.__score = 0
-        self.__chars = [chr(randint(44032, 55203)) for i in range(rounds)]
+        # Use different sample set depending on common arg parsed
+        if common:
+            # Use only 2350 most common hangul
+            with open(dirname(realpath(__file__)) + '/common.txt') as f:
+                self.__chars = sample(f.read().splitlines(), rounds)
+        else:
+            # Use all hangul in the unicode set
+            self.__chars = [chr(randint(44032, 55203)) for i in range(rounds)]
         self.__parsed = [kroman.parse(i) for i in self.__chars]
 
     # Print in green for correct answer
@@ -48,10 +56,12 @@ def main():
     parser = argparse.ArgumentParser(description='Hangul study/test app')
     parser.add_argument('-n', dest='rounds', type=int, default=10,
                         help='Number of question rounds')
+    parser.add_argument('-c', dest='common', action='store_true',
+                        help='Use most common syllables')
     args = parser.parse_args()
 
     # Play a game of given number of rounds (default 10)
-    g = Game(args.rounds)
+    g = Game(args.rounds, args.common)
     g.play()
 
 if __name__ == '__main__':
